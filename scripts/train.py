@@ -1,6 +1,10 @@
 import copy
 import time
 import os
+import sys
+
+# 修复 Windows 终端编码问题
+sys.stdout.reconfigure(encoding='utf-8')
 
 import torch
 from torchvision.datasets import ImageFolder
@@ -29,7 +33,7 @@ def get_dataloader(data_subfolder, batch_size=32, shuffle=True):
                              std=[0.229, 0.224, 0.225])
     ])
 
-    data_path = f'D:/AI_Projects/taki_recognizer/data/raw/{data_subfolder}'
+    data_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data', 'raw', data_subfolder)
 
     full_dataset = ImageFolder(
         root=data_path,
