@@ -19,7 +19,7 @@ env/
 uploads/
 *.log
 
-# 数据和日志（可选，如果想保留就删除这行）
-# data/
-# logs/
-# notebooks/
+# 数据和日志
+data/
+logs/
+notebooks/
