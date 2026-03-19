@@ -327,26 +327,68 @@
 
                 if (data.success) {
                     // 提取数值
-                    const probIsTaki = parseFloat(data.probabilities['非立希']);
-                    const probNotTaki = parseFloat(data.probabilities['是立希']);
+                    const probNotTaki = parseFloat(data.probabilities['非立希']);
+                    const probIsTaki = parseFloat(data.probabilities['是立希']);
 
-                    resultDiv.className = 'result success';
-                    resultDiv.innerHTML = `
-                        <h2>✅ 是立希！</h2>
-                        <p>${data.message}</p>
-                        <p style="font-size: 18px; color: #667eea; font-weight: bold; margin: 10px 0;">${data.praise}</p>
-                        <div class="confidence">置信度: ${(probIsTaki * 100).toFixed(2)}%</div>
-                        <table class="probability-table">
-                            <tr>
-                                <td>是立希</td>
-                                <td>不是立希</td>
-                            </tr>
-                            <tr>
-                                <td>${(probIsTaki * 100).toFixed(2)}%</td>
-                                <td>${(probNotTaki * 100).toFixed(2)}%</td>
-                            </tr>
-                        </table>
-                    `;
+                    // 判断是否不确定
+                    const isUncertain = data.uncertain === true;
+
+                    if (isUncertain) {
+                        resultDiv.className = 'result';
+                        resultDiv.style.background = '#fff9c4';  // 黄色背景
+                        resultDiv.style.border = '2px solid #ff9800';  // 橙色边框
+                        resultDiv.innerHTML = `
+                            <h2 style="color: #ff9800;">❓ 不确定</h2>
+                            <p style="font-size: 18px; color: #ff9800; font-weight: bold; margin: 10px 0;">置信度太低，无法准确识别</p>
+                            <div class="confidence">最高置信度: ${(Math.max(probNotTaki, probIsTaki) * 100).toFixed(2)}%</div>
+                            <table class="probability-table">
+                                <tr>
+                                    <td>非立希</td>
+                                    <td>是立希</td>
+                                </tr>
+                                <tr>
+                                    <td>${(probNotTaki * 100).toFixed(2)}%</td>
+                                    <td>${(probIsTaki * 100).toFixed(2)}%</td>
+                                </tr>
+                            </table>
+                        `;
+                    } else if (data.is_taki) {
+                        resultDiv.className = 'result success';
+                        resultDiv.innerHTML = `
+                            <h2>✅ 是立希！</h2>
+                            <p>${data.message}</p>
+                            <p style="font-size: 18px; color: #667eea; font-weight: bold; margin: 10px 0;">${data.praise}</p>
+                            <div class="confidence">置信度: ${(probIsTaki * 100).toFixed(2)}%</div>
+                            <table class="probability-table">
+                                <tr>
+                                    <td>非立希</td>
+                                    <td>是立希</td>
+                                </tr>
+                                <tr>
+                                    <td>${(probNotTaki * 100).toFixed(2)}%</td>
+                                    <td>${(probIsTaki * 100).toFixed(2)}%</td>
+                                </tr>
+                            </table>
+                        `;
+                    } else {
+                        resultDiv.className = 'result error';
+                        resultDiv.innerHTML = `
+                            <h2>❌ 不是立希</h2>
+                            <p>${data.message}</p>
+                            <p style="font-size: 18px; color: #f44336; font-weight: bold; margin: 10px 0;">${data.praise}</p>
+                            <div class="confidence" style="color: #f44336;">置信度: ${(probNotTaki * 100).toFixed(2)}%</div>
+                            <table class="probability-table">
+                                <tr>
+                                    <td>非立希</td>
+                                    <td>是立希</td>
+                                </tr>
+                                <tr>
+                                    <td>${(probNotTaki * 100).toFixed(2)}%</td>
+                                    <td>${(probIsTaki * 100).toFixed(2)}%</td>
+                                </tr>
+                            </table>
+                        `;
+                    }
                 } else {
                     resultDiv.className = 'result error';
                     resultDiv.innerHTML = `<p>错误: ${data.error}</p>`;

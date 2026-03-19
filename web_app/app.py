@@ -73,14 +73,15 @@ def predict_with_image(image):
 
     print(f"✅ 预测完成: 类别={pred_class}, 置信度={confidence:.2%}")
 
-    # 结果解释
-    is_taki = (pred_class == 0 or pred_class == 1)
+    # 结果解释：只有预测为立希（标签1）且置信度足够高才判定为立希
+    is_taki = (pred_class == 1 and confidence >= 0.5)
 
     return {
         'is_taki': is_taki,
         'confidence': float(confidence),
         'prob_not_taki': float(probabilities[0].item()),
-        'prob_is_taki': float(probabilities[1].item())
+        'prob_is_taki': float(probabilities[1].item()),
+        'uncertain': confidence < 0.5  # 标记是否不确定
     }
 
 
