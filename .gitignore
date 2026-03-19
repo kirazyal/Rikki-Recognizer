@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 临时文件
+uploads/
+*.log
+
+# 数据和日志（可选，如果想保留就删除这行）
+# data/
+# logs/
+# notebooks/
