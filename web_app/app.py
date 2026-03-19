@@ -91,13 +91,8 @@ def predict_image(image_path):
         import numpy as np
         from PIL import Image
         import io
-        import imghdr
 
         print(f"📷 尝试读取图片: {image_path}")
-
-        # 先检查文件类型
-        img_type = imghdr.what(image_path)
-        print(f"📊 文件类型检测: {img_type}")
 
         # 方法1: OpenCV
         img_cv = cv2.imread(image_path)
