@@ -1,6 +1,10 @@
 # Taki Recognizer
 
-椎名立希（来自《BanG Dream! It's MyGO!!!!!》）图片识别系统。
+椎名立希图片识别系统。
+
+## 写在前面
+本网页由小白借助ai所编写，如有不足还请多多指教
+
 
 ## 功能
 
@@ -10,35 +14,9 @@
 
 ## 在线使用
 
-访问部署的网页即可使用。
+请访问https://rikki-recognizer.onrender.com
 
-## 本地运行
-
-### 安装依赖
-
-```bash
-pip install -r requirements.txt
-```
-
-### 启动网页服务
-
-```bash
-cd web_app
-python app.py
-```
-
-然后打开浏览器访问 `http://localhost:5000`
-
-### 训练模型
-
-```bash
-cd scripts
-python train.py
-```
-
-训练数据放在 `data/raw/` 目录下：
-- `official/` - 官方立希图片
-- `taki/` - 所有立希图片（包含同人）
+首次进入会可能需要加载一段时间，还请耐心等待
 
 ## 技术栈
 
