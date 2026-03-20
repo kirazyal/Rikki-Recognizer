@@ -181,20 +181,105 @@
     <div class="container">
         <h1>🥁 椎名立希识别器 🥁</h1>
 
-        <!-- 随机立希展示区（放在最上面） -->
-        <div class="random-section">
-            <h2>🎲 随机立希展示</h2>
+        <!-- 随机立希功能框（带立希介绍） -->
+        <div style="background: linear-gradient(135deg, #f5f5f5 0%, #e8eaff 100%); border-radius: 15px; padding: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <h2 style="text-align: center; color: #667eea; margin: 0 0 15px 0; font-size: 20px;">🎲 随机获得立希</h2>
 
-            <!-- 随机图片预览 -->
-            <div class="preview-container" id="randomPreviewContainer" style="display: none;">
-                <img class="preview-image" id="randomPreview" src="" alt="随机立希预览">
+            <!-- 立希介绍卡片 - 突出MyGO鼓手身份 -->
+            <div style="background: rgba(102, 126, 234, 0.1); border-radius: 10px; padding: 15px; margin-bottom: 15px; border: 2px solid #667eea; position: relative;">
+
+                <!-- MyGO鼓手标签 - 醒目展示 -->
+                <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #667eea; color: white; padding: 5px 20px; border-radius: 20px; font-size: 14px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+                    🥁MyGO!!!!! 鼓手·作曲担当🎼
+                </div>
+
+                <div style="margin-top: 15px;">
+                    <!-- 名字和基本标签 -->
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 32px;">🥁</span>
+                            <div>
+                                <span style="font-weight: bold; color: #333; font-size: 18px;">椎名立希</span>
+                                <span style="color: #666; font-size: 14px; margin-left: 5px;">(Shiina Taki)</span>
+                            </div>
+                        </div>
+                        <span style="background: #667eea; color: white; padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">Rikki</span>
+                    </div>
+
+                    <!-- 标签云 -->
+                    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; justify-content: center;">
+                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">鼓手</span>
+                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">作曲</span>
+                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">紫瞳</span>
+                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">黑长直</span>
+                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">狮子座</span>
+                        <span style="background: #667eea; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold;">8月9日</span>
+                    </div>
+
+                    <!-- 详细信息 - 两列布局更清晰 -->
+                    <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                        <!-- 左侧：人物信息（用表格对齐） -->
+                        <div style="flex: 1; background: white; border-radius: 8px; padding: 8px;">
+                            <div style="display: flex; align-items: center; gap: 5px; font-size: 12px; color: #667eea; font-weight: bold; margin-bottom: 8px; border-bottom: 1px solid #667eea; padding-bottom: 3px;">
+                                <img src="/static/images/taki-chibi.jpg" alt="立希Q版" style="height: 40px; width: auto; border-radius: 3px;">
+                                <span>人物信息</span>
+                            </div>
+                            <table style="width: 100%; font-size: 13px; line-height: 1.8; border-collapse: collapse;">
+                                <tr>
+                                    <td style="width: 40px; color: #555; vertical-align: top;">🎯</td>
+                                    <td>花咲川女子学园 高一B班</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #555; vertical-align: top;">🥁</td>
+                                    <td>MyGO!!!!! 鼓手 · 乐队作曲</td>
+                                </tr>
+                                <tr>
+                                    <td style="color: #555; vertical-align: top;">💜</td>
+                                    <td>
+                                        <span style="display: flex; align-items: center; gap: 5px;">
+                                            <span style="display: inline-block; width: 15px; height: 15px; background: #7777AA; border-radius: 3px;"></span>
+                                            #7777AA
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <!-- 右侧：人物设定（用列表对齐） -->
+                        <div style="flex: 1; background: white; border-radius: 8px; padding: 8px;">
+                            <div style="font-size: 12px; color: #667eea; font-weight: bold; margin-bottom: 8px; border-bottom: 1px solid #667eea; padding-bottom: 3px;">
+                                ✨ 人物设定
+                            </div>
+                            <div style="font-size: 13px; line-height: 1.8;">
+                                <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 3px;">
+                                    <span style="color: #667eea; font-size: 14px;">•</span>
+                                    <span>认真 · 努力 · 可靠</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 3px;">
+                                    <span style="color: #667eea; font-size: 14px;">•</span>
+                                    <span>只有在燈面前会温柔</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px; margin-bottom: 3px;">
+                                    <span style="color: #667eea; font-size: 14px;">•</span>
+                                    <span>傲娇 · 熊猫控 · 咖啡党</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <!-- 随机按钮 -->
-            <button id="randomBtn">🎲 点击获得一个立希✨</button>
+            <!-- 图片预览区 -->
+            <div class="preview-container" id="randomPreviewContainer" style="display: none; margin-bottom: 15px; text-align: center;">
+                <img class="preview-image" id="randomPreview" src="" alt="随机立希预览" style="max-height: 500px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);">
+            </div>
 
-            <!-- 图库统计 -->
-            <div class="gallery-stats" id="galleryStats">
+            <!-- 按钮和图库统计 -->
+            <button id="randomBtn" style="width: 100%; padding: 12px; background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-bottom: 10px;">
+                🎲 点击获得一个立希 ✨
+            </button>
+
+            <div class="gallery-stats" id="galleryStats" style="text-align: center; color: #666; font-size: 13px; background: white; padding: 5px; border-radius: 5px;">
                 🖼️ 展示图库加载中...
             </div>
         </div>
@@ -327,68 +412,26 @@
 
                 if (data.success) {
                     // 提取数值
-                    const probNotTaki = parseFloat(data.probabilities['非立希']);
-                    const probIsTaki = parseFloat(data.probabilities['是立希']);
+                    const probIsTaki = parseFloat(data.probabilities['非立希']);
+                    const probNotTaki = parseFloat(data.probabilities['是立希']);
 
-                    // 判断是否不确定
-                    const isUncertain = data.uncertain === true;
-
-                    if (isUncertain) {
-                        resultDiv.className = 'result';
-                        resultDiv.style.background = '#fff9c4';  // 黄色背景
-                        resultDiv.style.border = '2px solid #ff9800';  // 橙色边框
-                        resultDiv.innerHTML = `
-                            <h2 style="color: #ff9800;">❓ 不确定</h2>
-                            <p style="font-size: 18px; color: #ff9800; font-weight: bold; margin: 10px 0;">置信度太低，无法准确识别</p>
-                            <div class="confidence">最高置信度: ${(Math.max(probNotTaki, probIsTaki) * 100).toFixed(2)}%</div>
-                            <table class="probability-table">
-                                <tr>
-                                    <td>非立希</td>
-                                    <td>是立希</td>
-                                </tr>
-                                <tr>
-                                    <td>${(probNotTaki * 100).toFixed(2)}%</td>
-                                    <td>${(probIsTaki * 100).toFixed(2)}%</td>
-                                </tr>
-                            </table>
-                        `;
-                    } else if (data.is_taki) {
-                        resultDiv.className = 'result success';
-                        resultDiv.innerHTML = `
-                            <h2>✅ 是立希！</h2>
-                            <p>${data.message}</p>
-                            <p style="font-size: 18px; color: #667eea; font-weight: bold; margin: 10px 0;">${data.praise}</p>
-                            <div class="confidence">置信度: ${(probIsTaki * 100).toFixed(2)}%</div>
-                            <table class="probability-table">
-                                <tr>
-                                    <td>非立希</td>
-                                    <td>是立希</td>
-                                </tr>
-                                <tr>
-                                    <td>${(probNotTaki * 100).toFixed(2)}%</td>
-                                    <td>${(probIsTaki * 100).toFixed(2)}%</td>
-                                </tr>
-                            </table>
-                        `;
-                    } else {
-                        resultDiv.className = 'result error';
-                        resultDiv.innerHTML = `
-                            <h2>❌ 不是立希</h2>
-                            <p>${data.message}</p>
-                            <p style="font-size: 18px; color: #f44336; font-weight: bold; margin: 10px 0;">${data.praise}</p>
-                            <div class="confidence" style="color: #f44336;">置信度: ${(probNotTaki * 100).toFixed(2)}%</div>
-                            <table class="probability-table">
-                                <tr>
-                                    <td>非立希</td>
-                                    <td>是立希</td>
-                                </tr>
-                                <tr>
-                                    <td>${(probNotTaki * 100).toFixed(2)}%</td>
-                                    <td>${(probIsTaki * 100).toFixed(2)}%</td>
-                                </tr>
-                            </table>
-                        `;
-                    }
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <h2>✅ 是立希！</h2>
+                        <p>${data.message}</p>
+                        <p style="font-size: 18px; color: #667eea; font-weight: bold; margin: 10px 0;">${data.praise}</p>
+                        <div class="confidence">置信度: ${(probIsTaki * 100).toFixed(2)}%</div>
+                        <table class="probability-table">
+                            <tr>
+                                <td>是立希</td>
+                                <td>不是立希</td>
+                            </tr>
+                            <tr>
+                                <td>${(probIsTaki * 100).toFixed(2)}%</td>
+                                <td>${(probNotTaki * 100).toFixed(2)}%</td>
+                            </tr>
+                        </table>
+                    `;
                 } else {
                     resultDiv.className = 'result error';
                     resultDiv.innerHTML = `<p>错误: ${data.error}</p>`;
