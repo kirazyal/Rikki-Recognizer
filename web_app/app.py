@@ -30,7 +30,7 @@ model_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file
 model.load_state_dict(torch.load(model_path, map_location=device))
 model = model.to(device)
 model.eval()
-print(f"✅ 模型加载成功，使用设备: {device}")
+print(f"Model loaded successfully, using device: {device}")
 
 # 预处理函数
 transform = transforms.Compose([
@@ -71,7 +71,7 @@ def predict_with_image(image):
             confidence = probabilities[0].item()
 
 
-    print(f"✅ 预测完成: 类别={pred_class}, 置信度={confidence:.2%}")
+    print(f"[OK] 预测完成: 类别={pred_class}, 置信度={confidence:.2%}")
 
     # 结果解释：只有预测为立希（标签1）且置信度足够高才判定为立希
     is_taki = (pred_class == 1 and confidence >= 0.5)
@@ -100,13 +100,13 @@ def predict_image(image_path):
         if img_cv is not None:
             img_cv = cv2.cvtColor(img_cv, cv2.COLOR_BGR2RGB)
             image = Image.fromarray(img_cv)
-            print("✅ OpenCV 读取成功")
+            print("[OK] OpenCV 读取成功")
             return predict_with_image(image)
 
         # 方法2: PIL 直接打开
         try:
             image = Image.open(image_path)
-            print("✅ PIL 直接打开成功")
+            print("[OK] PIL 直接打开成功")
             return predict_with_image(image)
         except:
             pass
@@ -124,7 +124,7 @@ def predict_image(image_path):
         for ext in ['jpeg', 'png', 'bmp', 'gif', 'tiff']:
             try:
                 image = Image.open(io.BytesIO(img_data))
-                print(f"✅ BytesIO + {ext} 成功")
+                print(f"[OK] BytesIO + {ext} 成功")
                 return predict_with_image(image)
             except:
                 continue
@@ -136,7 +136,7 @@ def predict_image(image_path):
             if img_cv is not None:
                 img_cv = cv2.cvtColor(img_cv, cv2.COLOR_BGR2RGB)
                 image = Image.fromarray(img_cv)
-                print("✅ cv2.imdecode 成功")
+                print("[OK] cv2.imdecode 成功")
                 return predict_with_image(image)
         except:
             pass
@@ -144,7 +144,7 @@ def predict_image(image_path):
         raise Exception("所有图片读取方法都失败了")
 
     except Exception as e:
-        print(f"❌ 预测失败: {str(e)}")
+        print(f"[ERROR] 预测失败: {str(e)}")
         import traceback
         traceback.print_exc()
         return {'error': str(e)}
@@ -198,8 +198,8 @@ def predict():
                 '非立希': result['prob_not_taki'],  # 直接返回数值
                 '是立希': result['prob_is_taki']     # 直接返回数值
             },
-            'message': '是伟大的紫瞳黑长直鼓手椎名立希！✨' if result['is_taki'] else '不是椎名立希哦🌸',
-            'praise': '立希漂亮漂亮漂亮 ✨' if result['is_taki'] else '是另一个可爱的女孩子哦 🌸'
+            'message': '是伟大的紫瞳黑长直鼓手椎名立希！' if result['is_taki'] else '不是椎名立希哦',
+            'praise': '立希漂亮漂亮漂亮' if result['is_taki'] else '是另一个可爱的女孩子哦'
         })
 
     except Exception as e:
