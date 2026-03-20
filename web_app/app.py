@@ -30,7 +30,7 @@ model_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file
 model.load_state_dict(torch.load(model_path, map_location=device))
 model = model.to(device)
 model.eval()
-print(f"Model loaded successfully, using device: {device}")
+print(f"✅ 模型加载成功，使用设备: {device}")
 
 # 预处理函数
 transform = transforms.Compose([
@@ -56,32 +56,25 @@ def predict_with_image(image):
     image_tensor = transform(image).unsqueeze(0).to(device)
 
     # 预测
-    # 预测
-    # 预测
     with torch.no_grad():
         output = model(image_tensor)
         probabilities = torch.softmax(output, dim=1)[0]
-        pred_class = torch.argmax(probabilities).item()
+        # probabilities[0] = 非立希的概率
+        # probabilities[1] = 是立希的概率
 
-        # 如果是立希（标签1），置信度用"是立希"的概率
-        # 如果不是立希（标签0），置信度用"非立希"的概率
-        if pred_class == 1:  # 是立希
-            confidence = probabilities[1].item()
-        else:  # 不是立希
-            confidence = probabilities[0].item()
+        prob_not_taki = probabilities[0].item()  # 非立希的概率
+        prob_is_taki = probabilities[1].item()  # 是立希的概率
 
+    print(f"✅ 预测完成: 是立希概率={prob_is_taki:.2%}, 非立希概率={prob_not_taki:.2%}")
 
-    print(f"[OK] 预测完成: 类别={pred_class}, 置信度={confidence:.2%}")
-
-    # 结果解释：只有预测为立希（标签1）且置信度足够高才判定为立希
-    is_taki = (pred_class == 1 and confidence >= 0.5)
+    # 判断是否为立希：是立希的概率 > 50%
+    is_taki = prob_is_taki > 0.5
 
     return {
         'is_taki': is_taki,
-        'confidence': float(confidence),
-        'prob_not_taki': float(probabilities[0].item()),
-        'prob_is_taki': float(probabilities[1].item()),
-        'uncertain': confidence < 0.5  # 标记是否不确定
+        'confidence': prob_is_taki if is_taki else prob_not_taki,
+        'prob_not_taki': prob_not_taki,
+        'prob_is_taki': prob_is_taki
     }
 
 
@@ -100,13 +93,13 @@ def predict_image(image_path):
         if img_cv is not None:
             img_cv = cv2.cvtColor(img_cv, cv2.COLOR_BGR2RGB)
             image = Image.fromarray(img_cv)
-            print("[OK] OpenCV 读取成功")
+            print("✅ OpenCV 读取成功")
             return predict_with_image(image)
 
         # 方法2: PIL 直接打开
         try:
             image = Image.open(image_path)
-            print("[OK] PIL 直接打开成功")
+            print("✅ PIL 直接打开成功")
             return predict_with_image(image)
         except:
             pass
@@ -124,7 +117,7 @@ def predict_image(image_path):
         for ext in ['jpeg', 'png', 'bmp', 'gif', 'tiff']:
             try:
                 image = Image.open(io.BytesIO(img_data))
-                print(f"[OK] BytesIO + {ext} 成功")
+                print(f"✅ BytesIO + {ext} 成功")
                 return predict_with_image(image)
             except:
                 continue
@@ -136,7 +129,7 @@ def predict_image(image_path):
             if img_cv is not None:
                 img_cv = cv2.cvtColor(img_cv, cv2.COLOR_BGR2RGB)
                 image = Image.fromarray(img_cv)
-                print("[OK] cv2.imdecode 成功")
+                print("✅ cv2.imdecode 成功")
                 return predict_with_image(image)
         except:
             pass
@@ -144,7 +137,7 @@ def predict_image(image_path):
         raise Exception("所有图片读取方法都失败了")
 
     except Exception as e:
-        print(f"[ERROR] 预测失败: {str(e)}")
+        print(f"❌ 预测失败: {str(e)}")
         import traceback
         traceback.print_exc()
         return {'error': str(e)}
@@ -198,8 +191,8 @@ def predict():
                 '非立希': result['prob_not_taki'],  # 直接返回数值
                 '是立希': result['prob_is_taki']     # 直接返回数值
             },
-            'message': '是伟大的紫瞳黑长直鼓手椎名立希！' if result['is_taki'] else '不是椎名立希哦',
-            'praise': '立希漂亮漂亮漂亮' if result['is_taki'] else '是另一个可爱的女孩子哦'
+            'message': '是伟大的紫瞳黑长直鼓手椎名立希！✨' if result['is_taki'] else '不是椎名立希哦🌸',
+            'praise': '立希漂亮漂亮漂亮 ✨' if result['is_taki'] else '是另一个可爱的女孩子哦 🌸'
         })
 
     except Exception as e:
