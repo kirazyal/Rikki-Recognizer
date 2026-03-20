@@ -56,32 +56,25 @@ def predict_with_image(image):
     image_tensor = transform(image).unsqueeze(0).to(device)
 
     # 预测
-    # 预测
-    # 预测
     with torch.no_grad():
         output = model(image_tensor)
         probabilities = torch.softmax(output, dim=1)[0]
-        pred_class = torch.argmax(probabilities).item()
+        # probabilities[0] = 非立希的概率
+        # probabilities[1] = 是立希的概率
 
-        # 如果是立希（标签1），置信度用"是立希"的概率
-        # 如果不是立希（标签0），置信度用"非立希"的概率
-        if pred_class == 1:  # 是立希
-            confidence = probabilities[1].item()
-        else:  # 不是立希
-            confidence = probabilities[0].item()
+        prob_not_taki = probabilities[0].item()  # 非立希的概率
+        prob_is_taki = probabilities[1].item()  # 是立希的概率
 
+    print(f"✅ 预测完成: 是立希概率={prob_is_taki:.2%}, 非立希概率={prob_not_taki:.2%}")
 
-    print(f"✅ 预测完成: 类别={pred_class}, 置信度={confidence:.2%}")
-
-    # 结果解释：只有预测为立希（标签1）且置信度足够高才判定为立希
-    is_taki = (pred_class == 1 and confidence >= 0.5)
+    # 判断是否为立希：是立希的概率 > 50%
+    is_taki = prob_is_taki > 0.5
 
     return {
         'is_taki': is_taki,
-        'confidence': float(confidence),
-        'prob_not_taki': float(probabilities[0].item()),
-        'prob_is_taki': float(probabilities[1].item()),
-        'uncertain': confidence < 0.5  # 标记是否不确定
+        'confidence': prob_is_taki if is_taki else prob_not_taki,
+        'prob_not_taki': prob_not_taki,
+        'prob_is_taki': prob_is_taki
     }
 
 
