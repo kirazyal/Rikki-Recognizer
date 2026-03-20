@@ -415,21 +415,29 @@
                     const probIsTaki = parseFloat(data.probabilities['是立希']);
                     const probNotTaki = parseFloat(data.probabilities['非立希']);
 
-                    resultDiv.className = 'result success';
+                    // 🔧 关键修改：直接基于概率判断，不依赖 data.is_taki
+                    const isTakiByProb = probIsTaki > 0.5;
+
+                    // 根据概率设置消息和夸奖
+                    const successMessage = isTakiByProb ? '是伟大的紫瞳黑长直鼓手椎名立希！✨' : '不是椎名立希哦🌸';
+                    const praiseMessage = isTakiByProb ? '立希漂亮漂亮漂亮 ✨' : '是另一个可爱的女孩子哦 🌸';
+                    const resultTitle = isTakiByProb ? '✅ 是立希！' : '❌ 不是立希';
+
+                    resultDiv.className = isTakiByProb ? 'result success' : 'result error';
                     resultDiv.innerHTML = `
-                        <h2>✅ 是立希！</h2>
-                        <p>${data.message}</p>
-                        <p style="font-size: 18px; color: #667eea; font-weight: bold; margin: 10px 0;">${data.praise}</p>
+                        <h2>${resultTitle}</h2>
+                        <p>${successMessage}</p>
+                        <p style="font-size: 18px; color: #667eea; font-weight: bold; margin: 10px 0;">${praiseMessage}</p>
                         <div class="confidence">置信度: ${(probIsTaki * 100).toFixed(2)}%</div>
                         <table class="probability-table">
                             <tr>
                                 <td>是立希</td>
                                 <td>不是立希</td>
                             </tr>
-                            <tr>
-                                <td>${(probIsTaki * 100).toFixed(2)}%</td>
-                                <td>${(probNotTaki * 100).toFixed(2)}%</td>
-                            </tr>
+                             <tr>
+                                 <td>${(probIsTaki * 100).toFixed(2)}%</td>
+                                 <td>${(probNotTaki * 100).toFixed(2)}%</td>
+                             </tr>
                         </table>
                     `;
                 } else {
